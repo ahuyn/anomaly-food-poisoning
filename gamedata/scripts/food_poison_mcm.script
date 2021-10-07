@@ -1,0 +1,45 @@
+TraderAuto = trader_autoinject.update
+function trader_autoinject.update(npc)
+    TraderAuto(npc)
+    add_meds(npc) -- you define this function ok
+end
+-- all medics stock carbon and emetics
+function add_meds(npc)
+
+	if trader_autoinject.get_trader_type(npc) == trader_autoinject.MEDIC then
+		trader_autoinject.spawn_items(npc, {
+            ["carbon"] = 4,
+            ["emetic"] = 1
+        }, true)
+    end
+end
+
+-- give a chance to drop some pills
+CreateReleaseItem = death_manager.create_release_item
+function death_manager.create_release_item(npc)
+    CreateReleaseItem(npc)
+    if math.random(5) == 5 then
+        local se_obj = alife_create_item("carbon", npc, {uses = math.random(4)})
+    end
+end
+
+-- If you don't use MCM, change your defaults from here.
+local defaults = {
+    ["verbosity"] = 1,
+    ["doc"] = true,
+    ["dev"] = false
+}
+function get_config(key)
+    if ui_mcm then return ui_mcm.get("poison/"..key) else return defaults[key] end
+end
+
+function on_mcm_load()
+    op = { id= "poison",sh=true ,gr={
+            { id= "title",type= "slide",link= "ui_options_slider_player",text="ui_mcm_poison_title",size= {512,50},spacing= 20 },
+            {id = "verbosity", type = "list",  content={ {0,"poison_off"} , {1,"poison_approx"}, {2,"poison_full"}}, def=1},
+            {id = "doc", type = "check", val = 1, def=true},
+            {id = "dev", type = "check", val = 1, def=false},
+        }
+    }
+    return op
+end

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<string_table>
+    <string id="st_carbon">
+		<text>Activated charcoal tablets</text>
+	</string>
+	<string id="st_carbon_descr">
+		<text>Consumable activated charcoal tablets produced from coconut husks that are used to treat ingested poisons and toxins. The tablet works by mechanically trapping potential toxic chemicals or poisons in micropores, preventing poisons from being procesed by the body but also trapping any undigested vitamins, drugs, or alcohol. Very commonly used by stalkers to counteract the toxins that are common in mutant flesh and old food.\n \n
+		%c[ui_gray_3]PROPERTIES:\n
+		%c[d_blue] • %c[ui_gray_2] antitoxin\n
+		%c[d_blue] • %c[ui_gray_2] mild alcohol sobering effect\n
+		</text>
+	</string>
+
+	<string id="st_emetic">
+		<text>Emetine vial</text>
+	</string>
+	<string id="st_emetic_descr">
+		<text>Vial of emetine, a drug derived from the ipecac root. Emetine is often used to treat amoeba dysentery and to induce vomiting in poisoning situations. Being a mild poison itself, it is unsafe to take this drug in unapproved doses. This is considered by many stalkers as a last resort if they ate something foul or dangerous and need it ejected out of their system, like a really bad meal. To use, go to a far-away corner, take the dropper out and put three drops in the back of your throat.\n \n
+		%c[ui_gray_3]PROPERTIES:\n
+		%c[d_blue] • %c[ui_gray_2] antitoxin\n
+		%c[d_blue] • %c[ui_gray_2] induces vomiting\n
+		%c[d_blue] • %c[ui_gray_2] potent alcohol sobering effect\n
+		</text>
+	</string>
+
+	<string id="st_breadmold">
+		<text>Old Bread</text>
+	</string>
+	<string id="st_breadmold_descr">
+		<text>Old piece of bread partially covered in mold. Not particularly safe to eat, but still nutritious.\n \n
+		%c[ui_gray_3]PROPERTIES:\n
+		%c[d_blue] • %c[ui_gray_2] food\n
+		%c[d_red] • %c[ui_gray_2] low quality\n
+		</text>
+	</string>
+
+	<string id="st_nuts_new_descr">
+		<text>Bag of 'Dee's Nuts' brand assorted nuts. Contains peanuts, hazelnuts, cashews and almonds in a nice and popular blend. Nutrition value is quite high, and is quite easy to eat on the trail. Especially delicious if combined with raisins. Imported from South Africa.\n \n
+		%c[ui_gray_3]PROPERTIES:\n
+		%c[d_blue] • %c[ui_gray_2] food\n
+		%c[d_blue] • %c[ui_gray_2] imported\n
+		%c[d_blue] • %c[ui_gray_2] high quality\n
+		%c[d_blue] • %c[ui_gray_2] clean nutrition source\n
+		</text>
+	</string>
+
+	<string id="st_poison_0">
+		<text>I feel fine.</text>
+	</string>
+	<string id="st_poison_1">
+		<text>I feel a little sick.</text>
+	</string>
+	<string id="st_poison_2">
+		<text>I don't feel so great.</text>
+	</string>
+	<string id="st_poison_3">
+		<text>I do not feel well.</text>
+	</string>
+	<string id="st_poison_4">
+		<text>I feel terrible..</text>
+	</string>
+	<string id="st_poison_5">
+		<text>I wont't make it...</text>
+	</string>
+
+	<string id="st_poison_verbose">
+		<text>Poison level: </text>
+	</string>
+
+	<string id="ui_mcm_menu_poison">
+		<text>Poison</text>
+	</string>
+	<string id="ui_mcm_poison_title">
+		<text>Food Poisoning Config</text>
+	</string>
+	<string id="ui_mcm_poison_verbosity">
+		<text>Verbosity level:</text>
+	</string>
+	
+	<string id="ui_mcm_poison_verbosity_desc">
+		<text>Off: No message indications of poisoning.\n \nApproximate: Rough estimates on poisoning level.\n \nExact: Gives exact poison level out of 1000.</text>
+	</string>
+	<string id="ui_mcm_lst_poison_off">
+		<text>Off</text>
+	</string>
+	<string id="ui_mcm_lst_poison_approx">
+		<text>Approximate</text>
+	</string>
+	<string id="ui_mcm_lst_poison_full">
+		<text>Full</text>
+	</string>
+	<string id="ui_mcm_poison_doc">
+		<text>Doctors heal poisoning</text>
+	</string>
+	<string id="ui_mcm_poison_doc_desc">
+		<text>Doctors will completely purge poisoning on heal.</text>
+	</string>
+	<string id="ui_mcm_poison_dev">
+		<text>Dev mode</text>
+	</string>
+	<string id="ui_mcm_poison_dev_desc">
+		<text>Enables console printing and allows some functions.</text>
+	</string>
+</string_table>

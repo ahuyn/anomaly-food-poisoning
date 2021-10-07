@@ -1,0 +1,7 @@
+PrepareStatsTable = utils.ui.prepare_stats_table
+-- currently not working. maybe do later
+function utils_ui.prepare_stats_table()
+    PrepareStatsTable()
+    utils_ui.stats_table["booster"]["eat_satiety"].magnitude = 2000
+    
+end

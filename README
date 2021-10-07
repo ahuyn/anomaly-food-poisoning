@@ -1,0 +1,52 @@
+Adds food poisoning to the game.
+
+Overview:
+Rebalances food to encourage the player to rely less on clean food and more on hunting. Adds a poisoning mechanic to breathe life in unused items.
+
+Strongly recommended to use with Campfire Roasting.
+
+Installation:
+1. Install main gamedata
+2. If you are not using DLTX, install consumable_changes/classic/gamedata
+2a. If you are using DLTX, use the DLTX version.
+
+Food changes:
+- Mutant meat overall: Cooked and stewed meat has vastly reduced radiation. However, consuming Zone-produced or Stewed meat adds poisoning to the player (even though the meat is free of parasites from radiation, it is mutated and still unnatural). Uncooked meat is incredibly, ridiculously toxic. Cooked and stewed are much more manageable. More on this later.
+- Purified meats: Removed the buffs - sorry!
+- Pack of old meat: Gives some poisoning.
+- Breadcrumbs: Reflavored to Old Bread, gives some poisoning.
+- Canned food / clean food: Increased in price and decreased in effectiveness overall. I do not know how often canned food drops, so this might have adverse effects economically.
+- Raisins: Multi-use, gives energy boost.
+- Nuts: Multi-use
+- Chocolate: No longer restores a ridiculous amount of calories. Instead grants a strong energy boost for a short time.
+- Protein bar: Also provides energy.
+
+Food poisoning mechanics:
+- Eating unhealthy food adds poisoning to the character that is applied over time.
+- Poisoning by itself works on a scale from 0-1000. The effects are detailed below:
+
+0-100   - No problems
+101-300 - increased thirst (dehydration rate), minor damage, minor PPE
+301-500 - increased thirst, reduced speed, minor damage, minor PPE
+501-700 - increased thirst, reduced speed, moderate damage, moderate PPE
+701-900 - increased thirst, reduced speed, major damage, not fatal, annoying PPE
+901+    - health loss is fatal
+
+Poisoning is reduced VERY SLOWLY over time (about 6 points/hour).
+
+Poison can be reduced by certain medicines:
+Activated Carbon (new!)
+Antidote
+Sulfadimethoxine
+Chlortetracycline
+Antidote
+Etperazine
+Emetine vial (new!)
+Rebirth
+
+New medicines can be purchased from medics or found on bodies.
+
+Todo crap
+- Calories out of 2000 (not important)
+- Drink and smoke overhaul
+- Balancing tweaks
