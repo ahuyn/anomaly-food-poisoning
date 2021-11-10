@@ -11,7 +11,7 @@ script_binding                                     = bind_item.bind
 max_uses                                 		   = 5
 inv_weight					                       = 0.011
 empty_weight                                       = 0.001
-icons_texture							               = ui\ui_toxine_meds
+icons_texture							           = ui\ui_toxine_meds
 inv_grid_width				                       = 1
 inv_grid_height				                       = 1
 inv_grid_x					                       = 0
@@ -56,3 +56,179 @@ eat_health			                               = -0.042
 use_sound					                       = interface\inv_eat_pills_effect
 tier = 2
 
+
+[decoction_base]:booster_multi
+$spawn 						                       = "food and drugs\antiemetic"
+visual						                       = dynamics\drink\drink_flask
+kind			                                   = i_medical
+description					                       = st_decoction_dog_descr
+cost						                       = 1202
+inv_name					                       = st_decoction_dog
+inv_name_short				                       = st_decoction_dog
+inv_weight					                       = 1.15
+empty_weight                                       = 0.034
+use_condition                            		   = true
+script_binding                                     = bind_item.bind
+max_uses                                 		   = 3
+icons_texture							           = ui\ui_arti_beverages
+inv_grid_width				                       = 1
+inv_grid_height				                       = 2
+inv_grid_x					                       = 0
+inv_grid_y					                       = 0
+upgr_icon_path								 	   = ui\actor_items\ui_actor_items_2
+upgr_icon_x								 	 	   = 0
+upgr_icon_y								 	 	   = 0
+upgr_icon_width						 	 	 	   = 150
+upgr_icon_height						 	 	   = 50
+use_sound					                       = interface\inv_drink_flask_2
+
+tier = 1
+
+
+[decoction_dog_ico]:tch_upgr_ico
+icons_texture							           = ui\ui_arti_beverages
+inv_grid_x					                       = 0
+inv_grid_y					                       = 4
+
+[decoction_dog]:decoction_base
+inv_grid_width				                       = 1
+inv_grid_height				                       = 2
+inv_grid_x					                       = 0
+inv_grid_y					                       = 0
+boost_time 					                       = 900	;5
+boost_power_restore			                       = 0.0015
+boost_chemburn_protection 	                       = 0.0014
+eat_sleepiness				                       = -0.1
+eat_alcohol					                       = -0.1
+1icon_layer                                        = decoction_dog_ico
+1icon_layer_y                                      = 50
+
+[decoction_boar_ico]:decoction_dog_ico
+inv_grid_x					                       = 1
+inv_grid_y					                       = 4
+
+[decoction_boar]:decoction_base
+description					                       = st_decoction_boar_descr
+cost						                       = 2561
+inv_weight					                       = 1.54
+inv_name					                       = st_decoction_boar
+inv_name_short				                       = st_decoction_boar
+inv_grid_width				                       = 1
+inv_grid_height				                       = 2
+inv_grid_x					                       = 1
+inv_grid_y					                       = 0
+boost_time 					                       = 600
+boost_radiation_protection			               = 0.0025
+boost_radiation_restore		                       = 0.00004
+boost_power_restore			                       = -0.0008
+1icon_layer                                        = decoction_boar_ico
+1icon_layer_y                                      = 50
+
+
+[decoction_flesh_ico]:decoction_dog_ico
+inv_grid_x					                       = 2
+inv_grid_y					                       = 4
+
+[decoction_flesh]:decoction_base
+description					                       = st_decoction_flesh_descr
+cost						                       = 2615
+inv_name					                       = st_decoction_flesh
+inv_name_short				                       = st_decoction_flesh
+inv_weight					                       = 1.54
+inv_grid_width				                       = 1
+inv_grid_height				                       = 2
+inv_grid_x					                       = 2
+inv_grid_y					                       = 0
+boost_time 					                       = 360
+boost_health_restore		                       = 0.00015
+boost_power_restore			                       = -0.0008
+1icon_layer                                        = decoction_flesh_ico
+1icon_layer_y                                      = 50
+
+[decoction_krovoso_ico]:decoction_dog_ico
+inv_grid_x					                       = 3
+inv_grid_y					                       = 4
+
+[decoction_krovoso]:decoction_base
+description					                       = st_decoction_krovoso_descr
+cost						                       = 2102
+inv_name					                       = st_decoction_krovoso
+inv_name_short				                       = st_decoction_krovoso
+inv_weight					                       = 1.32
+inv_grid_width				                       = 1
+inv_grid_height				                       = 2
+inv_grid_x					                       = 3
+inv_grid_y					                       = 0
+max_uses                                           = 2
+boost_time 					                       = 360
+boost_bleeding_restore 		                       = 0.003
+boost_wound_immunity		                       = 0.45
+1icon_layer                                        = decoction_krovoso_ico
+1icon_layer_y                                      = 50
+
+[decoction_cat_ico]:decoction_dog_ico
+inv_grid_x					                       = 0
+inv_grid_y					                       = 5
+
+[decoction_cat]:decoction_base
+description					                       = st_decoction_cat_descr
+cost						                       = 1662
+inv_name					                       = st_decoction_cat
+inv_name_short				                       = st_decoction_cat
+inv_weight					                       = 0.78
+inv_grid_width				                       = 1
+inv_grid_height				                       = 1
+inv_grid_x					                       = 0
+inv_grid_y					                       = 2
+max_uses                                           = 2
+boost_time 					                       = 1800
+boost_power_restore			                       = 0.003
+boost_telepat_protection 	                       = 0.0055
+eat_sleepiness				                       = -0.25
+eat_alcohol					                       = -0.25
+1icon_layer                                        = decoction_cat_ico
+
+[decoction_chimera_ico]:decoction_dog_ico
+inv_grid_x					                       = 1
+inv_grid_y					                       = 5
+
+[decoction_chimera]:decoction_base
+description					                       = st_decoction_chimera_descr
+cost						                       = 3213
+inv_name					                       = st_decoction_chimera
+inv_name_short				                       = st_decoction_chimera
+inv_weight					                       = 0.56
+inv_grid_width				                       = 1
+inv_grid_height				                       = 1
+inv_grid_x					                       = 1
+inv_grid_y					                       = 2
+max_uses                                           = 1
+boost_time 					                       = 7200
+boost_power_restore			                       = 0.005
+boost_max_weight			                       = 22.147
+eat_sleepiness				                       = -0.5
+eat_alcohol					                       = -0.5
+1icon_layer                                        = decoction_chimera_ico
+
+
+[decoction_giant_ico]:decoction_dog_ico
+inv_grid_x					                       = 2
+inv_grid_y					                       = 5
+
+[decoction_giant]:decoction_base
+description					                       = st_decoction_giant_descr
+cost						                       = 5215
+inv_name					                       = st_decoction_giant
+inv_name_short				                       = st_decoction_giant
+inv_weight					                       = 2.32
+inv_grid_width				                       = 1
+inv_grid_height				                       = 1
+inv_grid_x					                       = 2
+inv_grid_y					                       = 2
+max_uses                                           = 1
+boost_time 					                       = 180
+boost_wound_immunity		                       = 0.874
+boost_fire_wound_immunity	                       = 0.688
+boost_explosion_immunity	                       = 0.944
+boost_strike_immunity		                       = 0.866
+1icon_layer                                        = decoction_giant_ico

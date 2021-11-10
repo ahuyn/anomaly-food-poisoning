@@ -1,0 +1,10 @@
+function on_game_start()
+    
+	workshop_autoinject.add_new_recipe(5, "decoction_dog","4, recipe_drug_2,beer,1,mutant_part_dog_liver,1,mutant_part_dog_heart,1,caffeine,5")
+	workshop_autoinject.add_new_recipe(5, "decoction_boar","4, recipe_drug_2,vodka,3,mutant_part_boar_leg,1,drug_sleepingpills,5")
+	workshop_autoinject.add_new_recipe(5, "decoction_flesh","4, recipe_drug_2,vodka2,3,mutant_part_flesh_eye,1,mutant_part_flesh_meat,1,yadylin,1")
+	workshop_autoinject.add_new_recipe(5, "decoction_krovoso","4, recipe_drug_3,mineral_water,2,mutant_part_heart_bloodsucker,1,mutant_part_krovosos_jaw,1,drug_coagulant,5")
+	workshop_autoinject.add_new_recipe(5, "decoction_cat","4, recipe_drug_3,water_drink,1,mutant_part_lurker_eye,1,mutant_part_cat_thyroid,1,drug_psy_blockade,1")
+	workshop_autoinject.add_new_recipe(5, "decoction_chimera","4, recipe_drug_4,flask,3,mutant_part_chimera_meat,1,mutant_part_heart_chimera,1,cocaine,1")
+	workshop_autoinject.add_new_recipe(5, "decoction_giant","4, recipe_drug_4,bottle_metal,1,mutant_part_pseudogigant_hand,1,mutant_part_pseudogigant_eye,1,morphine,2")
+end
