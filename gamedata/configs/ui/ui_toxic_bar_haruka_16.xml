@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<w>
+	<toxic_bar x="30" y="512" width="100" height = "20" stretch="1">
+        <texture>ui_Toxicity_Bar_Background_Texture</texture>
+        <toxic_icon x="-20" y="0" width="20" height="20" stretch="1">
+             <texture>ui_Toxicity_Bar_Skull_Big_Texture</texture>
+        </toxic_icon>
+        <value x="0" y="0" width="100" height="20" horz="1" min="0" max="1" stretch="1">
+		    <progress>
+			    <texture>ui_Toxicity_Bar_Texture</texture>
+		    </progress>
+        </value>
+	</toxic_bar>
+</w> 

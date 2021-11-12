@@ -45,6 +45,7 @@ function process_queue()
         end
     end
     poison_level = clamp(poison_level + to_apply, 0, 1000)
+	update_hud()
 end
 
 function add_to_queue(id, ticks, amt)
@@ -167,6 +168,7 @@ function actor_on_item_use(obj)
         local val = cache[sec]
         print_dbg("Item has poison adding to queue %s, %s", val.ticks, val.amt)
         add_to_queue(id, val.ticks, val.amt)
+		show_hud()
     end
 end
 
@@ -214,6 +216,83 @@ function load_state(mdata)
     poison_level = mdata.poison_level or 0
     food_queue = mdata.food_queue or {}
 end
+
+HUD = nil
+
+function show_hud()
+	if not HUD then
+		HUD = UIToxicBar()
+		get_hud():AddDialogToRender(HUD)
+	end
+	HUD:Display()
+end
+
+function update_hud()
+	if not HUD then
+		HUD = UIToxicBar()
+		get_hud():AddDialogToRender(HUD)
+	end
+	HUD:UpdateValues()
+end
+
+class "UIToxicBar" (CUIScriptWnd)
+
+function UIToxicBar:__init() super()
+	self:InitControls()
+end
+function UIToxicBar:InitControls()
+	local xml  = CScriptXmlInit()
+	xml:ParseFile("ui_toxic_bar_haruka.xml")
+	self.dialog = xml:InitStatic("toxic_bar", self)
+	self.dialog:Show(false)
+	self.toxic_icon = xml:InitStatic("toxic_bar:toxic_icon", self.dialog)
+	self.toxic_bar = xml:InitProgressBar  ("toxic_bar:value", self.dialog)
+	self.toxic_icon:Show(true)
+	scale_ui(self.toxic_icon)
+	self.toxic_bar:Show(true)
+end
+
+function UIToxicBar:Display()
+	self.dialog:Show(true)
+	CreateTimeEvent("haruka_clear_bar", "haruka_clear_bar", 5, function() 
+		self:Clear()
+		return true
+	end)
+	ResetTimeEvent("haruka_clear_bar","haruka_clear_bar",5)
+end
+
+function UIToxicBar:UpdateValues()
+	self.toxic_bar:SetProgressPos(poison_level * 0.001)
+end
+
+function scale_ui(ele, adjust_x, anchor, anchor_point, parent_width)
+	p_width = parent_width or 1024
+	p_center = p_width/2
+	width = ele:GetWidth()
+	pos = ele:GetWndPos()
+	anchorpos = {}
+	anchorpos.left = pos.x
+	anchorpos.right = anchorpos.left + width
+	anchorpos.center = anchorpos.left + width/2
+	ratio = (device().height / device().width) / (768 / 1024)
+	xadjust = anchorpos.left
+	if adjust_x then
+		if anchor_point == "right" then
+			xadjust = p_width - (p_width - (anchor and anchorpos[anchor] or anchorpos.left))*ratio
+		elseif anchor_point == "center" then
+			xadjust = p_center - (p_center - (anchor and anchorpos[anchor] or anchorpos.left))*ratio
+		else
+			xadjust = ratio * (anchor and anchorpos[anchor] or anchorpos.left)
+		end
+	end
+	ele:SetWndSize(vector2():set(ele:GetWidth() * ratio, ele:GetHeight()))
+	ele:SetWndPos( vector2():set(xadjust , pos.y ) )
+end
+
+function UIToxicBar:Clear()
+	self.dialog:Show(false)
+end
+
 function on_game_start()
     -- hydrate cache
     local ini_poison = ini_file("items\\settings\\toxins.ltx")
