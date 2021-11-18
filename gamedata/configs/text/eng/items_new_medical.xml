@@ -167,12 +167,6 @@
 	<string id="ui_mcm_lst_poison_full">
 		<text>Full</text>
 	</string>
-	<string id="ui_mcm_poison_bar">
-		<text>Show toxicity bar</text>
-	</string>
-	<string id="ui_mcm_poison_bar_desc">
-		<text>Show toxicity bar while consuming items that confer or remove poisoning.</text>
-	</string>
 	<string id="ui_mcm_poison_doc">
 		<text>Doctors heal poisoning</text>
 	</string>

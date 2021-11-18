@@ -26,7 +26,6 @@ end
 -- If you don't use MCM, change your defaults from here.
 local defaults = {
     ["verbosity"] = 1,
-    ["bar"] = 1,
     ["doc"] = true,
     ["dev"] = false
 }
@@ -37,8 +36,7 @@ end
 function on_mcm_load()
     op = { id= "poison",sh=true ,gr={
             { id= "title",type= "slide",link= "ui_options_slider_player",text="ui_mcm_poison_title",size= {512,50},spacing= 20 },
-            -- {id = "verbosity", type = "list",  content={ {0,"poison_off"} , {1,"poison_approx"}, {2,"poison_full"}}, def=1},
-            {id = "bar", type = "check",  val = 1, def=true},
+            {id = "verbosity", type = "list",  content={ {0,"poison_off"} , {1,"poison_approx"}, {2,"poison_full"}}, def=1},
             {id = "doc", type = "check", val = 1, def=true},
             {id = "dev", type = "check", val = 1, def=false},
         }
