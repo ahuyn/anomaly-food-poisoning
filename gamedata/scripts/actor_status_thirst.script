@@ -261,6 +261,10 @@ function get_additional_thirst_const()
     return 0
 end
 
+function modify_last_drink(value)
+	last_drink = clamp(last_drink + value, 0, 10000)
+end
+
 function on_game_start()
 	
 	local function on_game_load()
