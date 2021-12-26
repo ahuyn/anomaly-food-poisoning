@@ -106,24 +106,48 @@ function set_speed(lv)
     end
 end
 
-function set_ppe(lv)
-    if lv == 0 then    
-       level.remove_pp_effector(42069)
-    elseif lv == 1 then
-        -- blur
-        level.add_pp_effector("blur.ppe", 42069, true)
-    elseif lv == 2 then
-        -- raindrop
-        level.add_pp_effector("raindrop.ppe", 42069, true)
-    elseif lv == 3 then
-        -- shock
-        level.add_pp_effector("shock.ppe", 42069, true)
-    elseif lv == 4 then
-        -- surge_shock_old)
-        level.add_pp_effector("surge_shock_old.ppe", 42069, true)
-    elseif lv == 5 then
-        level.add_pp_effector("surge_shock_old.ppe", 42069, true)
+local last_time = 0
+local applied = false
+-- base time interval, if poisoned, every 50-150% of this time will trigger a 1 second ppe
+-- higher poison level reduces this interval size by 10%/level
+local base_interval = 15000
+local check_interval = 1000
+
+function process_ppe(lv)
+    
+    local time = time_global()
+    if time < last_time + check_interval then return end
+    last_time = time
+
+    if applied or lv == 0 then 
+        return
+    else
+        if lv == 1 then
+            level.add_pp_effector("raindrop.ppe", 42069, true)
+        elseif lv == 2 then
+            -- raindrop
+            level.add_pp_effector("raindrop.ppe", 42069, true)
+        elseif lv == 3 then
+            -- shock
+            level.add_pp_effector("shock.ppe", 42069, true)
+        elseif lv == 4 then
+            -- surge_shock_old)
+            level.add_pp_effector("surge_shock_old.ppe", 42069, true)
+        elseif lv == 5 then
+            level.add_pp_effector("surge_shock_old.ppe", 42069, true)
+        end
+        CreateTimeEvent("food_poisoning", "clear_ppe", math.random(3), remove_ppe, lv)
     end
+end
+
+function remove_ppe(lv)
+    level.remove_pp_effector(42069)
+    local to_add = (base_interval/2) + math.random(base_interval)
+    to_add = math.floor(to_add * (1.1 - (0.1 * lv) ) )
+    print_dbg("Adding next ppe at time %s", to_add)
+    last_time = time_global() + to_add
+    applied = false
+    return true
 end
 -- Update the player's current health status based on their poisoning level.
 function process_status()
@@ -133,7 +157,7 @@ function process_status()
         set_dehydration(lv)
         set_speed(lv)
         set_damage(lv)
-        set_ppe(lv)
+        -- set_ppe(lv)
     end
     -- update health every tick
     if lv > 0 then
@@ -141,6 +165,8 @@ function process_status()
             db.actor:change_health(damage_levels[lv])
         end
     end
+    -- update ppe if applicable
+    process_ppe(lv)
 end
 
 function report_poisoning()
@@ -225,7 +251,8 @@ function on_game_start()
         cache[id].amt = tonumber(values[1])
         cache[id].ticks = tonumber(values[2])
     end
-    
+
+    applied = false
     RegisterScriptCallback("save_state", save_state)
     RegisterScriptCallback("load_state", load_state)
     RegisterScriptCallback("on_key_press", on_key_press)
