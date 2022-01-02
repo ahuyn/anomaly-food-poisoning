@@ -18,14 +18,15 @@ end
 CreateReleaseItem = death_manager.create_release_item
 function death_manager.create_release_item(npc)
     CreateReleaseItem(npc)
-    if math.random(5) == 5 then
-        local se_obj = alife_create_item("carbon", npc, {uses = math.random(4)})
+    if math.random(100) <= get_config("chance") then
+        local se_obj = alife_create_item("carbon", npc, {uses = math.random(2)})
     end
 end
 
 -- If you don't use MCM, change your defaults from here.
 local defaults = {
     ["verbosity"] = 1,
+    ["chance"] = 10,
     ["doc"] = true,
     ["dev"] = false
 }
@@ -37,6 +38,7 @@ function on_mcm_load()
     op = { id= "poison",sh=true ,gr={
             { id= "title",type= "slide",link= "ui_options_slider_player",text="ui_mcm_poison_title",size= {512,50},spacing= 20 },
             {id = "verbosity", type = "list",  content={ {0,"poison_off"} , {1,"poison_approx"}, {2,"poison_full"}}, val = 2,def=1},
+            {id = "chance", type = "track", val = 2, min=1,max=100,step=1, def = 10},
             {id = "doc", type = "check", val = 1, def=true},
             {id = "dev", type = "check", val = 1, def=false},
         }

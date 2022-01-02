@@ -173,6 +173,12 @@
 	<string id="ui_mcm_poison_doc_desc">
 		<text>Doctors will completely purge poisoning on heal.</text>
 	</string>
+	<string id="ui_mcm_poison_chance">
+		<text>Pill drop chance</text>
+	</string>
+	<string id="ui_mcm_poison_chance_desc">
+		<text>Chance for stalkers to drop activated charcoal.</text>
+	</string>
 	<string id="ui_mcm_poison_dev">
 		<text>Dev mode</text>
 	</string>
