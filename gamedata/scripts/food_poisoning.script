@@ -40,12 +40,14 @@ function process_queue()
             else
                 print_dbg("evicted from queue")
                 food_queue[k] = nil 
-                report_poisoning()
+                -- report_poisoning()
             end
         end
     end
     poison_level = clamp(poison_level + to_apply, 0, 1000)
-	update_hud()
+    if get_config("bar") then
+        update_hud()
+    end
 end
 
 function add_to_queue(id, ticks, amt)
@@ -194,7 +196,7 @@ function actor_on_item_use(obj)
         local val = cache[sec]
         print_dbg("Item has poison adding to queue %s, %s", val.ticks, val.amt)
         add_to_queue(id, val.ticks, val.amt)
-		show_hud()
+        
     end
 end
 
