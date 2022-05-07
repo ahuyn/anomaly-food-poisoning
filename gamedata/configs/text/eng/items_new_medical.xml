@@ -185,6 +185,12 @@
 	<string id="ui_mcm_poison_chance_desc">
 		<text>Chance for stalkers to drop activated charcoal.</text>
 	</string>
+	<string id="ui_mcm_poison_enabled">
+		<text>Enable Poisoning</text>
+	</string>
+	<string id="ui_mcm_poison_enabled_desc">
+		<text>Enables the features provided by this mod - toxin accrual on food and decoction consumption, negative status effects due to poisoning level, and dropping of activated charcoal.\n \nNote that this will purge your existing toxins. Don't cheat!</text>
+	</string>
 	<string id="ui_mcm_poison_dev">
 		<text>Dev mode</text>
 	</string>
