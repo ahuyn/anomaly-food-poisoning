@@ -296,6 +296,21 @@ function UIToxicBar:Clear()
 	self.dialog:Show(false)
 end
 
+function on_option_change()
+    if get_config("enabled") then
+        print_dbg("Enabling feature")
+        RegisterScriptCallback("actor_on_update", update)
+        RegisterScriptCallback("actor_on_item_use", actor_on_item_use)
+        RegisterScriptCallback("actor_on_sleep", actor_on_sleep)
+    else
+        print_dbg("Disabling feature")
+        poison_level = 0
+        UnregisterScriptCallback("actor_on_update", update)
+        UnregisterScriptCallback("actor_on_item_use", actor_on_item_use)
+        UnregisterScriptCallback("actor_on_sleep", actor_on_sleep)
+    end
+end
+
 function on_game_start()
     -- hydrate cache
     local count = ini_poison:line_count("food_toxicity") or 0
@@ -311,8 +326,7 @@ function on_game_start()
     RegisterScriptCallback("save_state", save_state)
     RegisterScriptCallback("load_state", load_state)
     RegisterScriptCallback("on_key_press", on_key_press)
-    RegisterScriptCallback("actor_on_update", update)
-    RegisterScriptCallback("actor_on_item_use", actor_on_item_use)
-    RegisterScriptCallback("actor_on_sleep", actor_on_sleep)
+    RegisterScriptCallback("on_option_change", on_option_change)
+    on_option_change()
     RegisterScriptCallback("actor_on_net_destroy",actor_on_net_destroy)
 end

@@ -6,7 +6,7 @@ end
 -- all medics stock carbon and emetics
 function add_meds(npc)
 
-	if trader_autoinject.get_trader_type(npc) == trader_autoinject.MEDIC then
+	if get_config("enabled") and trader_autoinject.get_trader_type(npc) == trader_autoinject.MEDIC then
 		trader_autoinject.spawn_items(npc, {
             ["carbon"] = 4,
             ["emetic"] = 1
@@ -18,13 +18,14 @@ end
 CreateReleaseItem = death_manager.create_release_item
 function death_manager.create_release_item(npc)
     CreateReleaseItem(npc)
-    if math.random(100) <= get_config("chance") then
+    if get_config("enabled") and math.random(100) <= get_config("chance") then
         local se_obj = alife_create_item("carbon", npc, {uses = math.random(2)})
     end
 end
 
 -- If you don't use MCM, change your defaults from here.
 local defaults = {
+    ["enabled"] = true,
     ["verbosity"] = 1,
     ["chance"] = 10,
     ["bar"] = true,
@@ -38,6 +39,7 @@ end
 function on_mcm_load()
     op = { id= "poison",sh=true ,gr={
             { id= "title",type= "slide",link= "ui_options_slider_player",text="ui_mcm_poison_title",size= {512,50},spacing= 20 },
+            {id = "enabled", type = "check", val = 1, def=true},
             {id = "verbosity", type = "list",  content={ {0,"poison_off"} , {1,"poison_approx"}, {2,"poison_full"}}, val = 2,def=1},
             {id = "chance", type = "track", val = 2, min=1,max=100,step=1, def = 10},
             {id = "bar", type = "check",  val = 1, def=true},
