@@ -4,6 +4,7 @@ local food_queue = {}
 local cache = {}
 local TICK_DELAY = 6 -- 6 in game seconds or 1 irl second
 get_config = food_poison_mcm.get_config
+ini_poison = ini_file("items\\settings\\toxins.ltx")
 
 function print_dbg(text, ...) 
     if get_config("dev") then
@@ -17,7 +18,6 @@ end
 
 local prev_time
 function update()
-
     local curr_time = game.get_game_time()
     if (prev_time == nil) then prev_time = curr_time end
     
@@ -67,50 +67,37 @@ function determine_level()
     return lv + 1
 end
 
-local thirst_levels = {
-    40, --lv1
-    60, --lv2
-    90, --lv3
-    130, --lv4
-    130, --lv5
-}
-function set_dehydration(lv)
-    if lv > 0 then
-        actor_status_thirst.set_thirst_tick(thirst_levels[lv])
+-- set debuffs that change once per level
+function set_debuffs(lv)
+    print_dbg("Toxic level now at %s", lv)
+    local sec = "toxic_"..lv
+    -- process speed
+    local speedmod = ini_poison:r_float_ex(sec, "speed")
+    if speedmod then 
+        speed.add_speed("sickness", speedmod, false, true)
+    else 
+        speed.remove_speed("sickness") 
+    end
+    
+    -- process dehydration
+    local thirst = ini_poison:r_float_ex(sec, "thirst")
+    if thirst then 
+        actor_status_thirst.set_thirst_tick(thirst)
     else
         actor_status_thirst.reset_thirst_tick()
     end
 end
 
-local is_fatal = false
-local damage_levels = {
-    -0.0005, -- lv1
-    -0.0015,
-    -0.005,
-    -0.01,
-    -0.01
-}
-function set_damage(lv)
-    if lv == 5 then is_fatal = true
-    else is_fatal = false end
-end
-
-local speed_levels = {
-    0.9, --lv2
-    0.85,
-    0.85,
-    0.8
-}
-function set_speed(lv)
-    if lv > 1 then
-        speed.add_speed("sickness", speed_levels[lv - 1], false, true)
-    else
-        speed.remove_speed("sickness")
-    end
+function set_hp(lv)
+    local sec = "toxic_"..lv
+    local threshold = ini_poison:r_float_ex(sec, "threshold") or 1
+    local damage = ini_poison:r_float_ex(sec, "damage") or 0
+    if db.actor.health > threshold then db.actor:change_health(damage) end
 end
 
 local last_time = 0
 local applied = false
+-- unlike the other tick this one fires every 1 irl second
 -- base time interval, if poisoned, every 50-150% of this time will trigger a 1 second ppe
 -- higher poison level reduces this interval size by 10%/level
 local base_interval = 15000
@@ -121,24 +108,12 @@ function process_ppe(lv)
     local time = time_global()
     if time < last_time + check_interval then return end
     last_time = time
-
-    if applied or lv == 0 then 
+    local sec = "toxic_"..lv
+    local ppe = ini_poison:r_string_ex(sec, "ppe")
+    if applied or not ppe then 
         return
     else
-        if lv == 1 then
-            level.add_pp_effector("raindrop.ppe", 42069, true)
-        elseif lv == 2 then
-            -- raindrop
-            level.add_pp_effector("raindrop.ppe", 42069, true)
-        elseif lv == 3 then
-            -- shock
-            level.add_pp_effector("shock.ppe", 42069, true)
-        elseif lv == 4 then
-            -- surge_shock_old)
-            level.add_pp_effector("surge_shock_old.ppe", 42069, true)
-        elseif lv == 5 then
-            level.add_pp_effector("surge_shock_old.ppe", 42069, true)
-        end
+        level.add_pp_effector(ppe, 42069, true)
         CreateTimeEvent("food_poisoning", "clear_ppe", math.random(3), remove_ppe, lv)
     end
 end
@@ -157,17 +132,10 @@ function process_status()
     lv = determine_level()
     if current_level ~= lv then
         current_level = lv
-        set_dehydration(lv)
-        set_speed(lv)
-        set_damage(lv)
-        -- set_ppe(lv)
+        set_debuffs(lv)
     end
-    -- update health every tick
-    if lv > 0 then
-        if lv == 5 or (lv < 5 and db.actor.health > 0.01) then
-            db.actor:change_health(damage_levels[lv])
-        end
-    end
+    -- manage hp
+    set_hp(lv)
     -- update ppe if applicable
     process_ppe(lv)
 end
@@ -274,7 +242,7 @@ function UIToxicBar:InitControls()
 	self.dialog = xml:InitStatic("toxic_bar", self)
 	self.dialog:Show(false)
 	self.toxic_icon = xml:InitStatic("toxic_bar:toxic_icon", self.dialog)
-	self.toxic_bar = xml:InitProgressBar  ("toxic_bar:value", self.dialog)
+	self.toxic_bar = xml:InitProgressBar("toxic_bar:value", self.dialog)
 	self.toxic_icon:Show(true)
 	scale_ui(self.toxic_icon)
 	self.toxic_bar:Show(true)
@@ -323,7 +291,6 @@ end
 
 function on_game_start()
     -- hydrate cache
-    local ini_poison = ini_file("items\\settings\\toxins.ltx")
     local count = ini_poison:line_count("food_toxicity") or 0
     for i=0,count-1 do
         local result, id, value = ini_poison:r_line("food_toxicity" , i , "", "")
