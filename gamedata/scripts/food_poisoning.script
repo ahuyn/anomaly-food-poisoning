@@ -261,6 +261,13 @@ function UIToxicBar:UpdateValues()
 	self.toxic_bar:SetProgressPos(poison_level * 0.001)
 end
 
+function actor_on_net_destroy()
+    if HUD ~= nil then
+		get_hud():RemoveDialogToRender(HUD)
+		HUD = nil
+	end
+end
+
 function scale_ui(ele, adjust_x, anchor, anchor_point, parent_width)
 	p_width = parent_width or 1024
 	p_center = p_width/2
@@ -321,4 +328,5 @@ function on_game_start()
     RegisterScriptCallback("on_key_press", on_key_press)
     RegisterScriptCallback("on_option_change", on_option_change)
     on_option_change()
+    RegisterScriptCallback("actor_on_net_destroy",actor_on_net_destroy)
 end
