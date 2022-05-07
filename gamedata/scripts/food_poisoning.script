@@ -164,7 +164,7 @@ function actor_on_item_use(obj)
         local val = cache[sec]
         print_dbg("Item has poison adding to queue %s, %s", val.ticks, val.amt)
         add_to_queue(id, val.ticks, val.amt)
-        
+        show_hud()
     end
 end
 
