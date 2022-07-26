@@ -29,7 +29,7 @@ local defaults = {
     ["verbosity"] = 1,
     ["chance"] = 10,
     ["bar"] = true,
-    ["doc"] = true,
+    ["doc"] = 1,
     ["dev"] = false
 }
 function get_config(key)
@@ -43,7 +43,10 @@ function on_mcm_load()
             {id = "verbosity", type = "list",  content={ {0,"poison_off"} , {1,"poison_approx"}, {2,"poison_full"}}, val = 2,def=1},
             {id = "chance", type = "track", val = 2, min=1,max=100,step=1, def = 10},
             {id = "bar", type = "check",  val = 1, def=true},
-            {id = "doc", type = "check", val = 1, def=true},
+            {id = "doc", type = "radio_h",  content={ 
+                {0, "america"} , 
+                -- {1, "canada"}, 
+                {2, "scandinavia"}} ,val = 2, def = 1},
             {id = "dev", type = "check", val = 1, def=false},
         }
     }

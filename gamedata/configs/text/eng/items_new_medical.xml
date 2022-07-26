@@ -30,7 +30,6 @@
 		<text>Foul-smelling purple liquid made from the hearts and livers of blind dogs. Affectionately known by stalkers as 'Hair of the Dog', this is a favorite folk remedy for fatigue and tiredness. It also confers some of the Blind Dog's natural resistance to toxicity, however the drink is mildly toxic itself. The taste isn't too terrible, either - if you imagine you're drinking a glass of kvass it almost tastes the same.\n \n
 		%c[ui_gray_3]PROPERTIES:\n
 		%c[d_blue] • %c[ui_gray_2] zone-produced medicine\n
-		%c[d_blue] • %c[ui_gray_2] mildly toxic\n
 		</text>
 	</string>
 
@@ -41,7 +40,6 @@
 		<text>Coarse, opaque brown liquid made from pulverized boar hoof. Tastes fondly of playground dirt. A popular folk remedy for radiation sickness, if you decide that diarrhea and fatigue is better than dying of radiation poisoning.\n \n
 		%c[ui_gray_3]PROPERTIES:\n
 		%c[d_blue] • %c[ui_gray_2] zone-produced medicine\n
-		%c[d_blue] • %c[ui_gray_2] mildly toxic\n
 		</text>
 	</string>
 
@@ -52,7 +50,6 @@
 		<text>Rank purple liquid that burns the nose hairs on smelling. This disgusting concoction is made from the raw meat and eyes of mutated pigs. Accelerates the body's healing mechanisms by unknown means, and thus the best thing for a wounded stalker recovering from his injuries. However, the taste makes you wish for a bullet.\n \n
 		%c[ui_gray_3]PROPERTIES:\n
 		%c[d_blue] • %c[ui_gray_2] zone-produced medicine\n
-		%c[d_blue] • %c[ui_gray_2] moderately toxic\n
 		</text>
 	</string>
 
@@ -63,7 +60,6 @@
 		<text>Opaque, oily red fluid resembling blood plasma made from the heart and tentacles of the fearsome bloodsucker. Causes the body to rapidly produce red blood cells and platelets and hastens natural wound regeneration, making it extremely potent at dealing with bleeding and open wounds. In demand amongst Duty members to seal up wounds incurred when clearing mutant nests. The taste is not too bad either, but the texture of the medicine makes it hard to swallow. \n \n
 		%c[ui_gray_3]PROPERTIES:\n
 		%c[d_blue] • %c[ui_gray_2] zone-produced medicine\n
-		%c[d_blue] • %c[ui_gray_2] moderately toxic\n
 		</text>
 	</string>
 
@@ -74,7 +70,6 @@
 		<text>Fizzy, clear liquid with the aroma of ammonia made from fermented Lurker eye and Cat Thyroid gland. A potent alternative to the more popular 'Hair of the Dog', this drink is used by experienced hunters to chase their prey for long distances and stay mentally alert even after days in the field. However, catching cats is more difficult than dogs, and oftentimes Lurkers will make meals out of hapless stalkers, so this is a relatively uncommon concoction.\n \n
 		%c[ui_gray_3]PROPERTIES:\n
 		%c[d_blue] • %c[ui_gray_2] zone-produced medicine\n
-		%c[d_blue] • %c[ui_gray_2] moderately toxic\n
 		</text>
 	</string>
 
@@ -85,7 +80,6 @@
 		<text>Murky, bitter medicine made from the heart and flesh of the mighty Chimera. Stored in a flask as direct exposure to light denatures the active ingredients. Chimera blood have high amounts of unknown organic molecules that superficially resemble steroids, which scientists believe grant the monster its stupendous power, stamina, and regenerative ability. This medicine allows stalkers to have a small fraction of the Chimera's ability, but due to the difficulty of sourcing ingredients it is extremely rare. The medicine is also highly toxic to the blood, so extended use is not recommended.\n \n
 		%c[ui_gray_3]PROPERTIES:\n
 		%c[d_blue] • %c[ui_gray_2] zone-produced medicine\n
-		%c[d_blue] • %c[ui_gray_2] very toxic\n
 		</text>
 	</string>
 
@@ -96,7 +90,6 @@
 		<text>Potent medicine brewed from the hand and eyes of the Pseudogiant. If not shaken, sediment collects at the bottom which is thicker than mixed concrete. Legends speak of Monolith fighters who have continued to fight despite taking rifle rounds to the chest or having limbs blown off with explosivesD, completely and totally numb to all pain. Revered as a gift of the Zone.\n \n
 		%c[ui_gray_3]PROPERTIES:\n
 		%c[d_blue] • %c[ui_gray_2] zone-produced medicine\n
-		%c[d_blue] • %c[ui_gray_2] very toxic\n
 		%c[d_blue] • %c[ui_gray_2] colossal damage resistance\n
 		</text>
 	</string>
@@ -141,6 +134,38 @@
 		<text>I wont't make it...</text>
 	</string>
 
+
+	<string id="st_poison_add">
+		<text>toxic</text>
+	</string>
+
+	<string id="st_poison_subtract">
+		<text>effective at reducing toxicity</text>
+	</string>
+
+	<string id="st_dot">
+		<text>•</text>
+	</string>
+	<!-- 0-25 -->
+	<string id="st_poison_mag_0">
+		<text>slightly</text>
+	</string>
+	<!-- 25-75 -->
+	<string id="st_poison_mag_1">
+		<text>mildly</text>
+	</string>
+	<!-- 75-200 -->
+	<string id="st_poison_mag_2">
+		<text>moderately</text>
+	</string>
+	<!-- 200+ -->
+	<string id="st_poison_mag_3">
+		<text>greatly</text>
+	</string>
+
+	<string id="st_poison_verbose">
+		<text>Poison level: </text>
+	</string>
 	<string id="st_poison_verbose">
 		<text>Poison level: </text>
 	</string>
@@ -174,10 +199,24 @@
 		<text>Show toxicity bar while consuming items that confer or remove poisoning.</text>
 	</string>
 	<string id="ui_mcm_poison_doc">
-		<text>Doctors heal poisoning</text>
+		<text>Healthcare Level</text>
 	</string>
 	<string id="ui_mcm_poison_doc_desc">
-		<text>Doctors will completely purge poisoning on heal.</text>
+		<text>Determines if doctors completely purge poisoning on heal and how.
+			\n \n America: Doctors don't cure poisoning.
+			\n \n [NOT WORKING] Canada: Doctors cure poisoning, but the cost scales with level.
+			\n \n Scandinavia: Doctors cure poisoning at no extra cost.
+		</text>
+	</string>
+	
+	<string id="ui_mcm_lst_america">
+		<text>America</text>
+	</string>
+	<string id="ui_mcm_lst_canada">
+		<text>Canada</text>
+	</string>
+	<string id="ui_mcm_lst_scandinavia">
+		<text>Scandinavia</text>
 	</string>
 	<string id="ui_mcm_poison_chance">
 		<text>Pill drop chance</text>

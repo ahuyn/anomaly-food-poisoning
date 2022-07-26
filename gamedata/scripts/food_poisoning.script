@@ -2,7 +2,7 @@
 local poison_level = 0
 local food_queue = {}
 local cache = {}
-local TICK_DELAY = 6 -- 6 in game seconds or 1 irl second
+local TICK_DELAY = 12 -- 6 in game seconds or 1 irl second
 get_config = food_poison_mcm.get_config
 ini_poison = ini_file("items\\settings\\toxins.ltx")
 
@@ -92,6 +92,7 @@ function set_hp(lv)
     local sec = "toxic_"..lv
     local threshold = ini_poison:r_float_ex(sec, "threshold") or 1
     local damage = ini_poison:r_float_ex(sec, "damage") or 0
+    print_dbg("Changing actor hp by %s", damage)
     if db.actor.health > threshold then db.actor:change_health(damage) end
 end
 
@@ -113,13 +114,14 @@ function process_ppe(lv)
     if applied or not ppe then 
         return
     else
-        level.add_pp_effector(ppe, 42069, true)
+        print_dbg("Adding ppe %s", ppe)
+        level.add_pp_effector(ppe, 69421, true)
         CreateTimeEvent("food_poisoning", "clear_ppe", math.random(3), remove_ppe, lv)
     end
 end
 
 function remove_ppe(lv)
-    level.remove_pp_effector(42069)
+    level.remove_pp_effector(69421)
     local to_add = (base_interval/2) + math.random(base_interval)
     to_add = math.floor(to_add * (1.1 - (0.1 * lv) ) )
     print_dbg("Adding next ppe at time %s", to_add)
@@ -187,21 +189,78 @@ function on_key_press(key)
 	end
 end
 
+CheckInjure = dialogs.is_actor_injured
+function is_actor_injured(first_speaker, second_speaker)
+	if (db.actor.health < 1 or db.actor.bleeding > 0)
+	and (db.actor:money() >= 1850 + check_cure_poison_cost())
+	then
+		return true
+	end
+	return CheckInjure(first_speaker, second_speaker)
+end
+
+CheckInjureRads = dialogs.is_actor_injured_irradiated
+function is_actor_injured_irradiated(first_speaker, second_speaker)
+	if (db.actor.health < 1 or db.actor.bleeding > 0) and (db.actor.radiation > 0)
+	and (db.actor:money() >= 3350 + check_cure_poison_cost())
+	then
+		return true
+	end
+	return CheckInjureRads(first_speaker, second_speaker)
+end
+
 MedicHeal = dialogs.heal_actor_injury
 function dialogs.heal_actor_injury(a, b)
     MedicHeal(a, b)
-    if get_config("doc") then
-        print_dbg("healing poison")
-        poison_level = 0
-    end
+    cure_poison(a, b)
 end
 MedicHealAll = dialogs.heal_actor_injury_radiation
 function dialogs.heal_actor_injury_radiation(a, b)
     MedicHealAll(a, b)
-    if get_config("doc") then
-        print_dbg("healing poison")
+    cure_poison(a, b)
+end
+
+function cure_poison(a, b)
+    if get_config("doc") > 0 then
+        local cost = check_cure_poison_cost()
+        if cost > 0 then
+            dialogs.relocate_money_from_actor (a, b, cost)
+        end
         poison_level = 0
     end
+end
+
+function check_cure_poison_cost()
+    if get_config("doc") == 1 and poison_level > 0 then
+        return (1 + determine_level()) * 1000
+    else return 0
+    end
+end
+
+local clr_1  = utils_xml.get_color("ui_gray_1")
+local clr_2  = utils_xml.get_color("ui_gray_2")
+local clr_p  = utils_xml.get_color("d_purple")
+gc = game.translate_string
+BuildFooter = ui_item.build_desc_footer
+function ui_item.build_desc_footer(obj, sec, str)
+    _str = BuildFooter(obj, sec, str)
+    
+    sec = obj and obj:section() or sec
+    if cache[sec] then
+        val = cache[sec]
+        local action = val.amt < 0 and "st_poison_subtract" or "st_poison_add"
+        local total_amt = math.abs(val.amt * val.ticks)
+        local magnitude = 3
+        if total_amt < 25 then
+            magnitude = 0
+        elseif total_amt < 75 then
+            magnitude = 1
+        elseif total_amt < 200 then
+            magnitude = 2
+        end
+        _str = _str .. "  " .. clr_p .. gc("st_dot") .. " " .. clr_1 .. gc("st_poison_mag_"..magnitude) .. " " .. gc(action) .. "\\n"
+    end
+    return _str
 end
 
 function save_state(mdata)
