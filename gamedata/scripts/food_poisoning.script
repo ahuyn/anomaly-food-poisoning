@@ -107,7 +107,8 @@ local check_interval = 1000
 function process_ppe(lv)
     
     local time = time_global()
-    if time < last_time + check_interval then return end
+    local ppe_delay = ini_poison:r_string_ex(sec, "ppe_delay") or 10
+    if time < last_time + (check_interval * ppe_delay) then return end
     last_time = time
     local sec = "toxic_"..lv
     local ppe = ini_poison:r_string_ex(sec, "ppe")
